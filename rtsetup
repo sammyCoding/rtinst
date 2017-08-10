@@ -35,21 +35,21 @@ if [ -d /etc/rtinst ] && [ -z $branch ]; then
   if [ -z $branch ]; then
     branch=$(git describe --tags --exact-match)
   fi
-  if [ $(git ls-remote --tags --heads https://github.com/arakasi72/rtinst.git $branch | wc -l) -eq 0 ]; then
+  if [ $(git ls-remote --tags --heads https://github.com/sammyCoding/rtinst.git $branch | wc -l) -eq 0 ]; then
     echo "$branch has been deleted, using latest numbered release instead"
     branch=release
   fi
 fi
 
 if [ -z $branch ] || [ $branch = release ]; then
-  branch=$(basename "$(git ls-remote --tags https://github.com/arakasi72/rtinst.git | grep -o 'refs/tags/v.*' | sort -V | tail -1)")
+  branch=$(basename "$(git ls-remote --tags https://github.com/sammyCoding/rtinst.git | grep -o 'refs/tags/v.*' | sort -V | tail -1)")
   if [ -z $branch ]; then
     echo "Could not find a numbered release, using master instead"
     branch=master
   fi
 fi
 
-if [ $(git ls-remote --tags --heads https://github.com/arakasi72/rtinst.git $branch | wc -l) -eq 0 ]; then
+if [ $(git ls-remote --tags --heads https://github.com/sammyCoding/rtinst.git $branch | wc -l) -eq 0 ]; then
   echo "Could not find $branch, please try again"
   exit
 fi
@@ -57,7 +57,7 @@ fi
 echo "Installing rtinst $branch"
 cd
 rm -fr /etc/rtinst
-git clone -q https://github.com/arakasi72/rtinst.git /etc/rtinst
+git clone -q https://github.com/sammyCoding/rtinst.git /etc/rtinst
 cd /etc/rtinst
 git checkout $branch > /dev/null 2>&1
 cd
